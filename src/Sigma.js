@@ -18,6 +18,7 @@ type Props = {
   onOverEdge?: (e: Sigma$Event) => void, // TODO: onOverEdge does not work?
   onOutEdge?: (e: Sigma$Event) => void,
   onClickStage?: (e: Sigma$Event) => void,
+  bindSigma?: (sigma: sigma) => void,
 };
 type DefaultProps = {
   settings: Sigma$Settings
@@ -114,6 +115,9 @@ class Sigma extends React.Component<Props, State> {
     this.sigma = new sigma({settings})
     if (CustomShapes) CustomShapes.init(this.sigma)
     Sigma.bindHandlers(this.props, this.sigma)
+    if(this.props.bindSigma) {
+      this.props.bindSigma(this.sigma)
+    }
     if(this.props.graph) {
       try {
         this.sigma.graph.read(this.props.graph)
