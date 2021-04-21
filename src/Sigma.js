@@ -166,6 +166,8 @@ type Sigma$Event = {
       clientY: number
 }}}
 
+and an instance of sigma.
+
 type Sigma$EventHandler = (node:Sigma$Event) => void
 
 ```
@@ -176,7 +178,7 @@ type Sigma$EventHandler = (node:Sigma$Event) => void
       event => {
           let handler = "on" + event[0].toUpperCase() + event.substr(1);
           if (handlers[handler]) {
-            sigma.bind(event, handlers[handler])
+            sigma.bind(event, handlers[handler].bind(null, sigma))
           }
         } );
   }
